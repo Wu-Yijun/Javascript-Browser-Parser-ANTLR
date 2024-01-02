@@ -1,34 +1,8 @@
 import calcListener from './calcListener.js'
 
-var tContent = []
-
-var openTarget = function () {
-    // try {
-    //     tFile = fs.openSync(JSListener.tFileName, "w")
-    // }
-    // catch (err) {
-    //     console.log("Target file not created. " + err.message)
-    //     return;
-    // }
-}
-
-var closeTarget = function () {
-    // if (tFile == undefined) return;
-    for (var line in tContent) {
-        // fs.writeSync(tFile, tContent[line].trim() + "\n")
-        console.log("write:", tContent[line].trim())
-    }
-}
-
-var write = function (data) {
-    tContent.push(data)
-}
-
-
-function LoopLog(ctx) {
-    for (let i = 0; i < ctx.getChildCount(); i++) {
-        console.log(ctx.getChild(i).getText());
-    }
+function logout(ctx, str) {
+    console.log(ctx.getChildCount(), ctx.getText(), str,
+        ctx.getSourceInterval().start + ":" + ctx.getSourceInterval().stop);
 }
 
 class JSListener extends calcListener {
@@ -36,94 +10,96 @@ class JSListener extends calcListener {
 };
 
 JSListener.prototype.enterProgram = function (ctx) {
-    // create the target file
-    openTarget()
+    logout(ctx, "Program")
 };
 
 
 JSListener.prototype.exitProgram = function (ctx) {
-    // fill the target file and close it
-    closeTarget()
-    console.log(ctx)
+    1
 };
 
 
 
 JSListener.prototype.enterAssign = function (ctx) {
-    LoopLog(ctx);
+    logout(ctx, "Assign")
 };
 
 
 JSListener.prototype.exitAssign = function (ctx) {
-    // get the variable
-    var t1 = ctx.getChild(0).getText()
-    // skip the := symbol to use = instead
-    // get the expression
-    var t2 = ctx.getChild(2).getText()
-    write(t1 + "=" + t2)
+    1
 };
 
 
 JSListener.prototype.enterPrint = function (ctx) {
+    logout(ctx, "Print")
 };
 
 JSListener.prototype.exitPrint = function (ctx) {
-    var temp = "console.log("
-    // I skip the 'print' keyword so go to second child
-    temp += ctx.getChild(1).getText()
-    temp += ")"
-    write(temp)
+    1
 };
 
 
 JSListener.prototype.enterCondition = function (ctx) {
+    logout(ctx, "Condition")
 };
 
 JSListener.prototype.exitCondition = function (ctx) {
+    1
 };
 
 
 JSListener.prototype.enterExpression = function (ctx) {
+    logout(ctx, "Expression")
 };
 
 JSListener.prototype.exitExpression = function (ctx) {
+    1
 };
 
 
 
 JSListener.prototype.enterMultiplyingExpression = function (ctx) {
+    logout(ctx, "MultiplyingExpression")
 };
 
 
 JSListener.prototype.exitMultiplyingExpression = function (ctx) {
+    1
 };
 
 
 
 JSListener.prototype.enterPowExpression = function (ctx) {
+    logout(ctx, "PowExpression")
 };
 
 JSListener.prototype.exitPowExpression = function (ctx) {
+    1
 };
 
 
 
 JSListener.prototype.enterSignedAtom = function (ctx) {
+    logout(ctx, "SignedAtom")
 };
 
 
 JSListener.prototype.exitSignedAtom = function (ctx) {
+    1
 };
 
 
 JSListener.prototype.enterAtom = function (ctx) {
+    logout(ctx, "Atom")
 };
 
 JSListener.prototype.exitAtom = function (ctx) {
+    1
 };
 
 
 JSListener.prototype.enterNumber = function (ctx) {
+    logout(ctx, "Number")
 };
 
 
@@ -132,44 +108,55 @@ JSListener.prototype.exitNumber = function (ctx) {
 
 
 JSListener.prototype.enterConstant = function (ctx) {
+    logout(ctx, "Constant")
 };
 
 JSListener.prototype.exitConstant = function (ctx) {
+    1
 };
 
 
 JSListener.prototype.enterVariable = function (ctx) {
+    logout(ctx, "Variable")
 };
 
 JSListener.prototype.exitVariable = function (ctx) {
+    1
 };
 
 
 JSListener.prototype.enterFunc = function (ctx) {
+    logout(ctx, "Func")
 };
 
 JSListener.prototype.exitFunc = function (ctx) {
+    1
 };
 
 
 JSListener.prototype.enterFuncname = function (ctx) {
+    logout(ctx, "Funcname")
 };
 
 JSListener.prototype.exitFuncname = function (ctx) {
+    1
 };
 
 
 JSListener.prototype.enterRelop = function (ctx) {
+    logout(ctx, "Relop")
 };
 
 JSListener.prototype.exitRelop = function (ctx) {
+    1
 };
 
 JSListener.prototype.enterEmptyline = function (ctx) {
+    logout(ctx, "Emptyline")
 };
 
 JSListener.prototype.exitEmptyline = function (ctx) {
-    write("\n")
+    1
 };
 
 

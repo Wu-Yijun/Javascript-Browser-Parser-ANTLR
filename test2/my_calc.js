@@ -12,7 +12,7 @@ const oName = "test.js"
 console.log("Compiling " + iName + " to " + oName)
 
 var input = `
-x := 10 + 5
+x := 10 + 5 * 6 ^ 2
 
 print x + 8
 `
