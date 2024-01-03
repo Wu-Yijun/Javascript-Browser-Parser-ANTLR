@@ -2,5 +2,13 @@
     "search.exclude": {
         "**/node_modules": false,
         "**/node_modules_": true
+    },
+    "files.associations": {
+        "fstream": "cpp",
+        "vector": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "*.tcc": "cpp",
+        "ostream": "cpp"
     }
 }

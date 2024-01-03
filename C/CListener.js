@@ -1,6 +1,6 @@
 // Generated from C.g4 by ANTLR 4.13.1
 // jshint ignore: start
-import antlr4 from 'antlr4';
+import antlr4 from "../node_modules/antlr4/src/antlr4/index.web.js"
 
 // This class defines a complete listener for a parse tree produced by CParser.
 export default class CListener extends antlr4.tree.ParseTreeListener {

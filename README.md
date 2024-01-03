@@ -138,11 +138,101 @@ console.log(x+8)
 ### 迁移到词性分类(为高亮做准备)
 
 进一步修改代码，尝试更高级地打印出每一段：
-我们在每一个
+我们在每一个 `JSListener.enterSomething(){}` 中，加入输出打印各种信息，观察程序的执行流程。
+```javascript
+function logout(ctx, str) {
+    console.log(ctx.getChildCount(), ctx.getText(), str,
+        ctx.getSourceInterval().start + ":" + ctx.getSourceInterval().stop);
+}
+// ...
+JSListener.enterSomething(ctx){
+    logout(ctx, "Something");
+}
+```
+
+修改待编译代码为更复杂的
+```
+x := 10 + 5 * 6 ^ 2
+print x + 8
+```
+分别输出子节点数量，文本串，函数名，对应位置范围（如下）
 
 ![identify](./res/image2.png)
+
+子节点数量指示的是对应函数类型的子节点数，与子节点的性质无关，因此，可用很方便的从诸如加法表达式中提取出加号。
+
+### 更高级的测试（使用 C 实战）
+
+[跳转到文档中部](#c-实战)
+
 ### QA
 
 > 为什么我不用 node 测试
 
-**你以为我不想吗！** 我仿照着示例 `node calc.js test.calc` 然后你猜怎么着？它报错了，我还看不懂。
+**你以为我不想吗！** 我仿照着示例 `node calc.js test.calc` 。然后你猜怎么着？它报错了，我还看不懂。
+
+> 为什么我第一个实际测试选用 C ，python 不香吗
+
+因此 C 语法简明单一，而且我非常熟。 **我就瞧不起pyhton怎着么了，招你惹你了！**
+
+
+## C 实战
+
+### 尝试构建
+
+从 [antlr提供的编译器集合](https://github.com/antlr/grammars-v4) 中找出 C 的 C.g4
+由于它太全了，省去了我到处找的功夫，因此我给它了一个star ~~（暗示star）~~
+
+新建一个文件夹，同样的过程，处理完后，把 test 里我们创建的文件复制过去。
+
+然后修改一些链接名称。
+
+运行我们发现 parser.program() 是未定义的。
+因此需要一个入口程序
+但我不知道入口在哪.
+
+在网上找到了类似的问题 [Stack OveSflow](https://stackoverflow.com/questions/67973358/c-grammar-in-antlr4-raises-error-extraneous-input-int-on-int-main) ，结果需要使用 `compilationUnit()` 而不是 `primaryExpression()` 作为入口。
+
+使用代码仓库里C内的示例进行测试。
+
+```C
+#include <stdio.h>
+#define LAST 10
+int foo();
+int main()
+{
+    int i, sum = 0;
+   
+    for ( i = 1; i <= LAST; i++ ) {
+      sum += i;
+    } /*-for-*/
+    printf("sum = %d\\n", sum + foo());
+
+    return 0;
+}
+int foo(){
+    return 10;
+}
+```
+
+然后我们发现几点问题：
+1. 注释没有渲染，在词法被剔除了
+2. 宏没有渲染，被剔除了
+3. 变量没有对应！
+4. 很多量无法区分，比如变量或数字
+
+进一步分析流程，发现在之前的步骤，就可以得到全部的 tokens 的类型，范围和字符值。这是没有经过修剪的全部值。
+于是可以用下面的代码打印所有的 tokens
+```javascript
+for(let e of tokens.tokens){
+    console.log(e.type, e.start, e.stop ,e.text)
+}
+// var extractor = new JSListener();
+// antlr4.tree.ParseTreeWalker.DEFAULT.walk(extractor, tree);
+```
+
+tokens 的 type 对照表可以见之前生成的 C.tokens 文件。
+我们使用 C++ 按对照表生成 css 样式表（供高亮使用）：
+同时我们也生成一份自动转码 js 代码（方便测试用）
+
+经过测试，现在以及可以很好的显示测试了。接着我们用span生成一个样式。
