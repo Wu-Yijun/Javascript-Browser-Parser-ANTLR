@@ -28,7 +28,7 @@ int main()
     for ( i = 1; i <= LAST; i++ ) {
       sum += i;
     } /*-for-*/
-    printf("sum = %d\\n", sum + foo());
+    printf("sum = %d\\n", sum + foo() ,'12\\4\\5',"21\\3\\5");
 
     return 0;
 }
@@ -47,8 +47,8 @@ var tree = parser.compilationUnit();
 for (let e of tokens.tokens) {
     console.log(e.type, e.start, e.stop, e.text, nameList[e.type])
 }
-// var extractor = new JSListener();
-// antlr4.tree.ParseTreeWalker.DEFAULT.walk(extractor, tree);
+var extractor = new JSListener();
+antlr4.tree.ParseTreeWalker.DEFAULT.walk(extractor, tree);
 
 var str="";
 for (let e of tokens.tokens) {

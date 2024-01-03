@@ -12,7 +12,12 @@ const string kStylePrefix = "CodeCStyle";
 
 vector<StyleSheet> styles = {
     {"Signs", {",", ":", ";"}, {}, {"color: black;"}},
-    {"Keyword", {"auto", "const", "for", "return"}, {}, {"color: green;", "font-weight: bold;"}},
+    {"Keyword",
+     {"auto", "const", "for", "return", "struct"},
+     {},
+     {"color: green;", "font-weight: bold;"}},
+    {"Macros", {"#include", "#define"}, {}, {"color: green;", "font-weight: bold;"}},
+    {"MacrosConst", {"IncludePath"}, {}, {"color: brown;"}},
     {"NumberInteger", {"int", "long", "short", "signed"}, {}, {"color: blue;"}},
     {"Assign",
      {"=", "*=", "/=", "%=", "+=", "-=", "<<=", ">>=", "&=", "^=", "|="},

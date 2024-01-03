@@ -1,0 +1,41 @@
+.CodeCStyleBlockComment .CodeCStyleBlockCommentNote {
+    color: rgb(19, 101, 179);
+}
+
+.CodeCStyleStringLiteral .CodeCStyleStringLiteralFormatted {
+    color: rgb(49, 165, 214);
+}
+
+.CodeCStyleConstant .CodeCStyleCharBackSlash,
+.CodeCStyleStringLiteral .CodeCStyleStringLiteralBackSlash {
+    color: rgb(209, 173, 12);
+}
+
+#test {
+    font-size: 20px;
+}
+
+span.wavy-line {
+    text-decoration-style: wavy;
+    text-decoration-line: underline;
+}
+
+span.decoration-line-red {
+    text-decoration-color: red;
+}
+
+span.decoration-line-orange {
+    text-decoration-color: orange;
+}
+
+span.decoration-line-yellow {
+    text-decoration-color: yellow;
+}
+
+span.decoration-line-blue {
+    text-decoration-color: rgb(18, 141, 199);
+}
+
+span.decoration-line-green {
+    text-decoration-color: greenyellow;
+}

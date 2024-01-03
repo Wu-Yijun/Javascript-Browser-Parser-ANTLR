@@ -1,0 +1,202 @@
+{
+    "kLanguageName": "C",
+    "kStylePrefix": "CodeCStyle",
+    "styles": [
+        {
+            "name": "Signs",
+            "names": [
+                ",",
+                ":",
+                ";"
+            ],
+            "ids": [],
+            "styles": [
+                "color: black;"
+            ]
+        },
+        {
+            "name": "Keyword",
+            "names": [
+                "auto",
+                "const",
+                "for",
+                "return",
+                "struct"
+            ],
+            "ids": [],
+            "styles": [
+                "color: green;",
+                "font-weight: bold;"
+            ]
+        },
+        {
+            "name": "Macros",
+            "names": [
+                "#include",
+                "#define"
+            ],
+            "ids": [],
+            "styles": [
+                "color: green;",
+                "font-weight: bold;"
+            ]
+        },
+        {
+            "name": "MacrosConst",
+            "names": [
+                "IncludePath"
+            ],
+            "ids": [],
+            "styles": [
+                "color: brown;"
+            ]
+        },
+        {
+            "name": "NumberInteger",
+            "names": [
+                "int",
+                "long",
+                "short",
+                "signed"
+            ],
+            "ids": [],
+            "styles": [
+                "color: blue;"
+            ]
+        },
+        {
+            "name": "Assign",
+            "names": [
+                "=",
+                "*=",
+                "/=",
+                "%=",
+                "+=",
+                "-=",
+                "<<=",
+                ">>=",
+                "&=",
+                "^=",
+                "|="
+            ],
+            "ids": [],
+            "styles": [
+                "color: #777777;"
+            ]
+        },
+        {
+            "name": "Logic",
+            "names": [
+                "&&",
+                "||",
+                "!"
+            ],
+            "ids": [],
+            "styles": [
+                "color: #165d8c;"
+            ]
+        },
+        {
+            "name": "Operator",
+            "names": [
+                "+",
+                "++",
+                "-",
+                "--",
+                "*",
+                "/",
+                "%",
+                "&",
+                "|",
+                "^",
+                "~"
+            ],
+            "ids": [],
+            "styles": [
+                "color: #4c62ee;"
+            ]
+        },
+        {
+            "name": "Compare",
+            "names": [
+                "==",
+                "!=",
+                ">=",
+                "<=",
+                ">",
+                "<"
+            ],
+            "ids": [],
+            "styles": [
+                "color: #268c80;"
+            ]
+        },
+        {
+            "name": "Identifier",
+            "names": [
+                "Identifier"
+            ],
+            "ids": [],
+            "styles": [
+                "color: rgb(48, 144, 255);"
+            ]
+        },
+        {
+            "name": "Braket",
+            "names": [
+                "{",
+                "}",
+                "(",
+                ")",
+                "[",
+                "]"
+            ],
+            "ids": [],
+            "styles": [
+                "color: purple;"
+            ]
+        },
+        {
+            "name": "Comment",
+            "names": [
+                "BlockComment",
+                "LineComment"
+            ],
+            "ids": [],
+            "styles": [
+                "color: darkgreen;"
+            ]
+        },
+        {
+            "name": "Macro",
+            "names": [
+                "Directive",
+                "MultiLineMacro"
+            ],
+            "ids": [],
+            "styles": [
+                "color: darkgreen;"
+            ]
+        },
+        {
+            "name": "String",
+            "names": [
+                "StringLiteral"
+            ],
+            "ids": [],
+            "styles": [
+                "color: rgb(33, 134, 33);"
+            ]
+        },
+        {
+            "name": "Constant",
+            "names": [
+                "Constant"
+            ],
+            "ids": [],
+            "styles": [
+                "color: rgb(100, 193, 100);"
+            ]
+        }
+    ]
+}

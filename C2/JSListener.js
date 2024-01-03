@@ -897,11 +897,37 @@ export default class JSListener extends CListener {
     exitDeclarationList(ctx) {
     }
 
-    // Enter a parse tree produced by CParser#blockCommentA.
-	enterBlockCommentA(ctx) {
-        logout(ctx, "BlockCommentA");
-	}
+
+    // Enter a parse tree produced by CParser#macroDefines.
+    enterMacroDefines(ctx) {
+        logout(ctx, "MacroDefines");
+    }
+
+    // Exit a parse tree produced by CParser#macroDefines.
+    exitMacroDefines(ctx) {
+    }
+
+
+    // Enter a parse tree produced by CParser#includePath.
+    enterIncludePath(ctx) {
+        logout(ctx, "IncludePath");
+    }
+
+    // Exit a parse tree produced by CParser#includePath.
+    exitIncludePath(ctx) {
+    }
+
+
+    // Enter a parse tree produced by CParser#defineMacro.
+    enterDefineMacro(ctx) {
+        logout(ctx, "DefineMacro");
+    }
+
+    // Exit a parse tree produced by CParser#defineMacro.
+    exitDefineMacro(ctx) {
+    }
+
+
+
 
 };
-
-;

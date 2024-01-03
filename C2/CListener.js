@@ -797,12 +797,30 @@ export default class CListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by CParser#blockCommentA.
-	enterBlockCommentA(ctx) {
+	// Enter a parse tree produced by CParser#macroDefines.
+	enterMacroDefines(ctx) {
 	}
 
-	// Exit a parse tree produced by CParser#blockCommentA.
-	exitBlockCommentA(ctx) {
+	// Exit a parse tree produced by CParser#macroDefines.
+	exitMacroDefines(ctx) {
+	}
+
+
+	// Enter a parse tree produced by CParser#includePath.
+	enterIncludePath(ctx) {
+	}
+
+	// Exit a parse tree produced by CParser#includePath.
+	exitIncludePath(ctx) {
+	}
+
+
+	// Enter a parse tree produced by CParser#defineMacro.
+	enterDefineMacro(ctx) {
+	}
+
+	// Exit a parse tree produced by CParser#defineMacro.
+	exitDefineMacro(ctx) {
 	}
 
 
