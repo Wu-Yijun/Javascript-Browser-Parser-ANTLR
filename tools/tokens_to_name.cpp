@@ -4,27 +4,33 @@
 #include <regex>
 #include <set>
 #include <vector>
+
+/**
+ * @file tokens_to_name.cpp
+ * @author your name (you@domain.com)
+ * @brief
+ * @version 0.1
+ * @date 2024-01-03
+ *
+ * @copyright Copyright (c) 2024
+ *
+ */
+
+#include "CStyle.h"
+#include "Style.h"
+
 using namespace std;
-
-struct StyleSheet {
-    string name;
-    vector<string> names;
-    set<int> ids;
-};
-
-const string kStylePrefix = "CodeCStyle";
-
-vector<StyleSheet> styles = {
-    {"number_def", {"int", "short"}, {37, 38, 42, 43}},
-    {"logic", {"And", "Or"}, {}},
-};
 
 const regex pattern("'?(.+?)'?=(\\d+)");
 
-int main() {
+int main(int argc, char **argv) {
     string path, line, name;  // path should be XXX.tokens
     int id, max_id = 0;
-    getline(cin, path);
+    if (argc == 2) {
+        path = argv[1];
+    } else {
+        getline(cin, path);
+    }
     ifstream fin(path);
     vector<string> list = {"undef"};
     while (fin >> line) {
@@ -37,10 +43,10 @@ int main() {
                 list.resize(id * 1.5 + 1);
             list[id] = name;
             max_id = max(id, max_id);
-            for (auto i : styles)
-                for (auto j : i.names)
+            for (auto i = styles.begin(); i != styles.end(); ++i)
+                for (auto j : i->names)
                     if (j == name)
-                        i.ids.insert(id);
+                        i->ids.insert(id);
         }
     }
     fin.close();
@@ -52,7 +58,7 @@ int main() {
     fout_name.close();
 
     ofstream fout_css(path + ".css");
-    fout_css << "/* Default Style for C++ */\n"
+    fout_css << "/* Default Style for " << kLanguageName << " */\n"
              << "." << kStylePrefix << ",\n"
              << "." << kStylePrefix << "0,\n";
     std::vector<int> defined_id(max_id + 1, 0);
@@ -64,9 +70,11 @@ int main() {
     fout_css << "." << kStylePrefix << "Default {\n    color: red;\n}\n" << endl;
 
     for (auto i : styles) {
-        fout_css << "/* Style for C++ " << i.name << "*/\n";
+        fout_css << "/* Style for " << kLanguageName << " " << i.name << "*/\n";
         for (const auto j : i.ids) fout_css << "." << kStylePrefix << j << ",\n";
-        fout_css << "." << kStylePrefix << i.name << "\n{\n    color: black;\n}\n" << endl;
+        fout_css << "." << kStylePrefix << i.name << " {\n";
+        for (const auto j : i.styles) fout_css << "    " << j << "\n";
+        fout_css << "}\n" << endl;
     }
 
     fout_css.close();

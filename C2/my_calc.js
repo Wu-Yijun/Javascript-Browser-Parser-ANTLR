@@ -20,6 +20,8 @@ var input = `
  * @date 2024-1-3
  * @meta 多行注释测试
  **/
+
+
 int foo();
 int main()
 {
@@ -47,11 +49,16 @@ var tree = parser.compilationUnit();
 for (let e of tokens.tokens) {
     console.log(e.type, e.start, e.stop, e.text, nameList[e.type])
 }
-// var extractor = new JSListener();
-// antlr4.tree.ParseTreeWalker.DEFAULT.walk(extractor, tree);
+var extractor = new JSListener();
+antlr4.tree.ParseTreeWalker.DEFAULT.walk(extractor, tree);
 
 var str="";
 for (let e of tokens.tokens) {
     str+=`<span class="CodeCStyle${e.type}">${e.text}</span>`;
+    if(e.type==120)
+        console.log(e);
 }
 document.getElementById("test").innerHTML = str;
+
+var tree2 = parser.blockCommentA();
+antlr4.tree.ParseTreeWalker.DEFAULT.walk(extractor, tree2);

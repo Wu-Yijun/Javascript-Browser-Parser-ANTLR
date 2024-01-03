@@ -119,5 +119,7 @@ export default  [
     'Whitespace',
     'Newline',
     'BlockComment',
+    'BlockCommentA',
+    'BlockCommentNote',
     'LineComment'
 ];

@@ -1,0 +1,78 @@
+/* Default Style for C */
+.CodeCStyle,
+.CodeCStyle0,
+.CodeCStyle1,
+.CodeCStyle2,
+.CodeCStyle3,
+.CodeCStyle4,
+.CodeCStyle5,
+.CodeCStyleDefault {
+    color: red;
+}
+
+/* Style for C Signs*/
+.CodeCStyleSigns {
+    color: black;
+}
+
+/* Style for C Keyword*/
+.CodeCStyleKeyword {
+    color: green;
+    font-weight: bold;
+}
+
+/* Style for C NumberInteger*/
+.CodeCStyleNumberInteger {
+    color: blue;
+}
+
+/* Style for C Assign*/
+.CodeCStyleAssign {
+    color: #777777;
+}
+
+/* Style for C Logic*/
+.CodeCStyleLogic {
+    color: #165d8c;
+}
+
+/* Style for C Operator*/
+.CodeCStyleOperator {
+    color: #4c62ee;
+}
+
+/* Style for C Compare*/
+.CodeCStyleCompare {
+    color: #268c80;
+}
+
+/* Style for C Identifier*/
+.CodeCStyleIdentifier {
+    color: rgb(48, 144, 255);
+}
+
+/* Style for C Braket*/
+.CodeCStyleBraket {
+    color: purple;
+}
+
+/* Style for C Comment*/
+.CodeCStyleComment {
+    color: darkgreen;
+}
+
+/* Style for C Macro*/
+.CodeCStyleMacro {
+    color: darkgreen;
+}
+
+/* Style for C String*/
+.CodeCStyleString {
+    color: rgb(33, 134, 33);
+}
+
+/* Style for C Constant*/
+.CodeCStyleConstant {
+    color: rgb(100, 193, 100);
+}
+

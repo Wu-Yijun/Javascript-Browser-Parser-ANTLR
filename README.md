@@ -234,5 +234,35 @@ for(let e of tokens.tokens){
 tokens 的 type 对照表可以见之前生成的 C.tokens 文件。
 我们使用 C++ 按对照表生成 css 样式表（供高亮使用）：
 同时我们也生成一份自动转码 js 代码（方便测试用）
+最后修改我们的代码使每一个块获得对应的样式：
+```javascript
+var str="";
+for (let e of tokens.tokens) {
+    str+=`<span class="CodeCStyle${e.type}">${e.text}</span>`;
+}
+document.getElementById("test").innerHTML = str;
+```
+经过测试，现在以及可以很好的显示测试了。
 
-经过测试，现在以及可以很好的显示测试了。接着我们用span生成一个样式。
+目前存在的问题还剩：
+1. 变量没有对应
+2. 很多量无法区分，比如变量或数字
+3. 宏和注释等内容没有内部结构
+
+我们下一步对 g4 文件下手，尝试加入一些内容让我们可以区分这些量。
+
+### 自定义词法分析
+
+将文件夹拷贝一份，为 `./C2/*` 。
+
+然后修改 BlockComment, 引入 BlockCommentNote 
+然后我们发现词法分析任然显示为 BlockComment ，没有把 BlockCommentNote 提取出来。**经过一番调查我发现它是没法分解tokens的**
+
+那么词法分析就不用自定义了。
+一切入手的位置都集中在了监听器解析树。
+
+解析有两种方案，一种是叠buff，通过css选择器来决定样式。另一是手动分配样式的类。
+
+我们使用第二种。 然后还得到的结论就是尽量不要手动修改 g4 代码（因为没啥可以改的）
+
+删去 `./C2/*` 。

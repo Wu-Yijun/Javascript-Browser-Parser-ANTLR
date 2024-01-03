@@ -62,12 +62,12 @@
 .CodeCStyle107,
 .CodeCStyle108,
 .CodeCStyle109,
-.CodeCStyle111,
 .CodeCStyle112,
-.CodeCStyle113,
 .CodeCStyle116,
 .CodeCStyle117,
 .CodeCStyle118,
+.CodeCStyle120,
+.CodeCStyle121,
 .CodeCStyleDefault {
     color: red;
 }
@@ -169,7 +169,7 @@
 
 /* Style for C Comment*/
 .CodeCStyle119,
-.CodeCStyle120,
+.CodeCStyle122,
 .CodeCStyleComment {
     color: darkgreen;
 }
@@ -181,9 +181,9 @@
     color: darkgreen;
 }
 
-/* Style for C StringLiteral*/
+/* Style for C String*/
 .CodeCStyle113,
-.CodeCStyleStringLiteral {
+.CodeCStyleString {
     color: rgb(33, 134, 33);
 }
 
