@@ -11,15 +11,17 @@ export declare class Variables {
     // used to changed render styles
     marks: Array<string>;
 
-    constructor(type: string, name: string, identifier: string, range: Range);
+    varList: Array<Variables>;
 
-    extendRangeTo(name: string): void;
+    constructor(type: string, name: string, identifier: string,
+        range: Range, start?: number, stop?: number);
 
-    // return 0 if is enabled
-    // return 1 if before out of block
-    // return 2 if  after out of block
-    // return -1 if inside block but before defines
-    notEnabled(index: number): number;
+    // return  0 if is enabled
+    // return -1 if before inside block
+    // return -2 if before out of block
+    // return  1 if after  out of block
+    // return  1 if after  inside block
+    notEnabled(pos: number): number;
 };
 
 export declare class Range {
@@ -27,23 +29,29 @@ export declare class Range {
     end: number;
     parentRg?: Range;
     pos_index?: number;
-    property?: string;
+    name: string;
+    state: Array<string>;
 
-    sub: Array<Range>;
+
+    child: Array<Range>;
+
     vars: Array<Variables>;
-    cur_vars: Array<string>;
-    inner_vars: Array<string>;
-    inner_index: Array<number>;
+    var_names: Array<string>;
 
     constructor(start: number, end: number, parentRg?: Range, pos_index?: number);
-    addSub(start: number, end: number): Range;
+
+    createSub(ctx: ParserRuleContext): Range;
     addVar(variables: Variables): number;
-    addVarSub(name: string, index: number): void;
+    // addVarSub(name: string, index: number): void;
+
     hasVar(name: string): boolean;
     findVar(name: string): ?Variables;
+    checkVarRepeat(name: String, pos: number): boolean;
+    checkVarRepeatAll(name: String, pos: number): boolean;
     extendTo(name: string): Range;
 
-
-    setProperty(name: string): void;
-    getProperty(): string;
+    getState(id?: number): string;
+    setState(state: string, id?: number): void;
+    popState(): string;
+    pushState(state: string): number;
 }

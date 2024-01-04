@@ -5,41 +5,51 @@ import CParser from "./CParser.js";
 import { JSListenerRun, Token, Rule, TokenFind, RuleFind } from "./JSListenerRun.js"
 
 var input = `
-#include <stdio.h>
-#include "my_lib.h"
-#define LAST
-#define f(x, y) #x "123" "456" #y 
-#define f(x, y, z) (x+y+z) 
-#define g(x, y) 22 + \\
-xy
-#define h(z) 
-/***
- * @author 汉字测试
- * @date 2024-1-3
- * @meta 多行注释测试
- **/
-int a;
-struct A {
-    int b;
-} a;
+// #include <stdio.h>
+// #include "my_lib.h"
+// #define LAST
+// #define f(x, y) #x "123" "456" #y 
+// #define f(x, y, z) (x+y+z) 
+// #define r x + y
+// #define g(x, y) 22 + \\
+// xy
+// #define h(z) z
+// /***
+//  * @author 汉字测试
+//  * @date 2024-1-3
+//  * @meta 多行注释测试
+//  **/
+// int a;
+// struct A {
+//     int b;
+// } a;
 
-const int aa = 10;
-__inline__ int foo();
-int main()
-{
-    int i, sum = 0;
+// typedef long long LL;
+
+// const int aa = 10;
+// int foo(unsigned );
+// int main()
+// {
+//     int i, sum = 0;
+//     LL j = 1;
+//     LL k;
    
-    for ( i = 1; i <= LAST; i++ ) {
-      sum += i;
-    } /*-for-*/
-    printf("<sum> = %d\\n", sum + foo(), a.b(1,2).c(x));
-    printf("1%#1.00hd12%*12[]s3%c4", 10, "1", '2','\\2','333',' ');
+//     for ( i = 1; i <= LAST; i++ ) {
+//       sum += i;
+//     } /*-for-*/
+//     printf("<sum> = %d\\n", sum + foo(), a.b(1,2).c(x));
+//     printf("1%#1.00hd12%*12[]s3%c4", 10, "1", '2','\\2','333',' ');
 
-    return 0;
-}
-int foo(){
+//     return 0;
+// }
+int foo(LL x, int y, ...){
     return 10;
 }
+int bar(LL t);
+int fun(LL);
+int gooba(LL, LL);
+
+struct A a(b);
 `;
 
 var chars = new antlr4.InputStream(input);
@@ -54,9 +64,9 @@ var tree = parser.compilationUnit();
 var extractor = new JSListenerRun(tokens);
 antlr4.tree.ParseTreeWalker.DEFAULT.walk(extractor, tree);
 
-for (let e of tokens.tokens) {
-    console.log(e.type, e.start, e.stop, e.text, CLexer.ruleNames[e.type])
-}
+// for (let e of tokens.tokens) {
+//     console.log(e.type, e.start, e.stop, e.text, CLexer.ruleNames[e.type])
+// }
 
 var str = "";
 for (let e of tokens.tokens) {

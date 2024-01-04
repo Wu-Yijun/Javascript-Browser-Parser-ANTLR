@@ -6,9 +6,7 @@ import { Range, Variables } from "./Variables.js"
 export declare class JSListenerRun {
     range: Range;
     currentRange: Range;
-
-    constructor(range);
-
-    checkRename(pos: number, name: string, range: Range, until?: string): boolean;
-
+    lastVar: Variables;
+    lastType: string;
+    lastRangeCtx: DirectDeclaratorContext;
 }
