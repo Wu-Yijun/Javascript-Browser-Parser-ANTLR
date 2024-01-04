@@ -1,4 +1,4 @@
-
+// Range 只在作用域相关时创建。
 export class Range {
     constructor(start, end, parentRg, pos_index) {
         this.start = start;
