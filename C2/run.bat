@@ -8,5 +8,5 @@ del CLexer.tokens
 del CListener.js
 del CParser.js
 ..\antlr.jar -Dlanguage=JavaScript .\C.g4
-..\tools\tokens_to_name.exe C.tokens
+..\tools\tokens_to_name.exe C.tokens ..\tools\Cstyle.json
 ..\tools\repath.exe CLexer.js CParser.js CListener.js

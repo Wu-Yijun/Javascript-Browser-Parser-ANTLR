@@ -3,9 +3,6 @@
 .CodeCStyle0,
 .CodeCStyle1,
 .CodeCStyle2,
-.CodeCStyle3,
-.CodeCStyle4,
-.CodeCStyle5,
 .CodeCStyle6,
 .CodeCStyle7,
 .CodeCStyle8,
@@ -20,9 +17,10 @@
 .CodeCStyle17,
 .CodeCStyle18,
 .CodeCStyle19,
+.CodeCStyle21,
 .CodeCStyle22,
 .CodeCStyle23,
-.CodeCStyle24,
+.CodeCStyle25,
 .CodeCStyle26,
 .CodeCStyle27,
 .CodeCStyle28,
@@ -30,14 +28,13 @@
 .CodeCStyle30,
 .CodeCStyle31,
 .CodeCStyle32,
-.CodeCStyle33,
+.CodeCStyle34,
 .CodeCStyle35,
 .CodeCStyle36,
-.CodeCStyle37,
+.CodeCStyle39,
 .CodeCStyle40,
-.CodeCStyle41,
+.CodeCStyle44,
 .CodeCStyle45,
-.CodeCStyle46,
 .CodeCStyle47,
 .CodeCStyle48,
 .CodeCStyle49,
@@ -55,14 +52,13 @@
 .CodeCStyle61,
 .CodeCStyle62,
 .CodeCStyle63,
-.CodeCStyle64,
+.CodeCStyle74,
 .CodeCStyle75,
-.CodeCStyle76,
-.CodeCStyle91,
+.CodeCStyle90,
+.CodeCStyle107,
 .CodeCStyle108,
 .CodeCStyle109,
-.CodeCStyle110,
-.CodeCStyle113,
+.CodeCStyle112,
 .CodeCStyle117,
 .CodeCStyle118,
 .CodeCStyle119,
@@ -72,26 +68,31 @@
 }
 
 /* Style for C Signs*/
+.CodeCStyle91,
 .CodeCStyle92,
 .CodeCStyle93,
-.CodeCStyle94,
 .CodeCStyleSigns {
     color: black;
 }
 
 /* Style for C Keyword*/
-.CodeCStyle21,
-.CodeCStyle25,
-.CodeCStyle34,
-.CodeCStyle42,
+.CodeCStyle20,
+.CodeCStyle24,
+.CodeCStyle33,
+.CodeCStyle41,
+.CodeCStyle46,
 .CodeCStyleKeyword {
     color: green;
     font-weight: bold;
 }
 
 /* Style for C Macros*/
-.CodeCStyle20,
-.CodeCStyle115,
+.CodeCStyle3,
+.CodeCStyle4,
+.CodeCStyle5,
+.CodeCStyle101,
+.CodeCStyle113,
+.CodeCStyle114,
 .CodeCStyleMacros {
     color: green;
     font-weight: bold;
@@ -104,15 +105,16 @@
 }
 
 /* Style for C NumberInteger*/
+.CodeCStyle37,
 .CodeCStyle38,
-.CodeCStyle39,
+.CodeCStyle42,
 .CodeCStyle43,
-.CodeCStyle44,
 .CodeCStyleNumberInteger {
     color: blue;
 }
 
 /* Style for C Assign*/
+.CodeCStyle94,
 .CodeCStyle95,
 .CodeCStyle96,
 .CodeCStyle97,
@@ -123,20 +125,20 @@
 .CodeCStyle102,
 .CodeCStyle103,
 .CodeCStyle104,
-.CodeCStyle105,
 .CodeCStyleAssign {
     color: #777777;
 }
 
 /* Style for C Logic*/
+.CodeCStyle85,
 .CodeCStyle86,
-.CodeCStyle87,
-.CodeCStyle89,
+.CodeCStyle88,
 .CodeCStyleLogic {
     color: #165d8c;
 }
 
 /* Style for C Operator*/
+.CodeCStyle76,
 .CodeCStyle77,
 .CodeCStyle78,
 .CodeCStyle79,
@@ -145,37 +147,36 @@
 .CodeCStyle82,
 .CodeCStyle83,
 .CodeCStyle84,
-.CodeCStyle85,
-.CodeCStyle88,
-.CodeCStyle90,
+.CodeCStyle87,
+.CodeCStyle89,
 .CodeCStyleOperator {
     color: #4c62ee;
 }
 
 /* Style for C Compare*/
+.CodeCStyle70,
 .CodeCStyle71,
 .CodeCStyle72,
 .CodeCStyle73,
-.CodeCStyle74,
+.CodeCStyle105,
 .CodeCStyle106,
-.CodeCStyle107,
 .CodeCStyleCompare {
     color: #268c80;
 }
 
 /* Style for C Identifier*/
-.CodeCStyle111,
+.CodeCStyle110,
 .CodeCStyleIdentifier {
     color: rgb(48, 144, 255);
 }
 
 /* Style for C Braket*/
+.CodeCStyle64,
 .CodeCStyle65,
 .CodeCStyle66,
 .CodeCStyle67,
 .CodeCStyle68,
 .CodeCStyle69,
-.CodeCStyle70,
 .CodeCStyleBraket {
     color: purple;
 }
@@ -193,13 +194,13 @@
 }
 
 /* Style for C String*/
-.CodeCStyle114,
+.CodeCStyle115,
 .CodeCStyleString {
     color: rgb(33, 134, 33);
 }
 
 /* Style for C Constant*/
-.CodeCStyle112,
+.CodeCStyle111,
 .CodeCStyleConstant {
     color: rgb(100, 193, 100);
 }

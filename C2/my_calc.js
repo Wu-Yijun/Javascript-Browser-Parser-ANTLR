@@ -1,35 +1,30 @@
-import antlr4 from "../node_modules/antlr4/src/antlr4/index.web.js";
+import antlr4 from "./antlr4.js";
 import CLexer from "./CLexer.js";
 import CParser from "./CParser.js";
-import JSListener from "./JSListener.js";
-import nameList from "./C.tokens.js";
 
-
-const iName = "test.c";
-const oName = "test.js";
-
-
-// JSListener.tFileName = iName.replace(".calc", ".js")
-console.log("Compiling " + iName + " to " + oName);
+import { JSListenerRun, Token, Rule, TokenFind, RuleFind } from "./JSListenerRun.js"
 
 var input = `
 #include <stdio.h>
-#define LAST 10
-#define f(x, y) 12
+#include "my_lib.h"
+#define LAST
+#define f(x, y) #x "123" "456" #y 
+#define f(x, y, z) (x+y+z) 
 #define g(x, y) 22 + \\
 xy
+#define h(z) 
 /***
  * @author 汉字测试
  * @date 2024-1-3
  * @meta 多行注释测试
  **/
-
-struct A{
+int a;
+struct A {
     int b;
-};
+} a;
 
 const int aa = 10;
-int foo();
+__inline__ int foo();
 int main()
 {
     int i, sum = 0;
@@ -37,7 +32,7 @@ int main()
     for ( i = 1; i <= LAST; i++ ) {
       sum += i;
     } /*-for-*/
-    printf("sum = %d\\n", sum + foo());
+    printf("<sum> = %d\\n", sum + foo(), a.b(1,2).c(x));
     printf("1%#1.00hd12%*12[]s3%c4", 10, "1", '2','\\2','333',' ');
 
     return 0;
@@ -53,11 +48,14 @@ var tokens = new antlr4.CommonTokenStream(lexer);
 var parser = new CParser(tokens);
 parser.buildParseTrees = true;
 var tree = parser.compilationUnit();
-var extractor = new JSListener();
+
+
+
+var extractor = new JSListenerRun(tokens);
 antlr4.tree.ParseTreeWalker.DEFAULT.walk(extractor, tree);
 
 for (let e of tokens.tokens) {
-    console.log(e.type, e.start, e.stop, e.text, nameList[e.type])
+    console.log(e.type, e.start, e.stop, e.text, CLexer.ruleNames[e.type])
 }
 
 var str = "";
@@ -67,7 +65,7 @@ for (let e of tokens.tokens) {
         s = "";
     s = s.replaceAll("<", "&lt;");
     s = s.replaceAll(">", "&gt;");
-    switch (nameList[e.type]) {
+    switch (Token(e.type)) {
         case "BlockComment":
             s = s.replace(/([^\S\n])(@[^\s@]+?)([\s])/g, `$1<span class="CodeCStyleBlockCommentNote">$2</span>$3`);
             break;
@@ -97,7 +95,8 @@ for (let e of tokens.tokens) {
         case undefined:
             s = "";
     }
-    str += `<span class="CodeCStyle${e.type} CodeCStyle${nameList[e.type]}">${s}</span>`;
+    str += `<span class="CodeCStyle${e.type} CodeCStyle${Token(e.type)}">${s}</span>`;
 }
 document.getElementById("test").innerHTML = str;
 
+debugger;

@@ -797,12 +797,12 @@ export default class CListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by CParser#macroDefines.
-	enterMacroDefines(ctx) {
+	// Enter a parse tree produced by CParser#defineMacro.
+	enterDefineMacro(ctx) {
 	}
 
-	// Exit a parse tree produced by CParser#macroDefines.
-	exitMacroDefines(ctx) {
+	// Exit a parse tree produced by CParser#defineMacro.
+	exitDefineMacro(ctx) {
 	}
 
 
@@ -815,12 +815,12 @@ export default class CListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by CParser#defineMacro.
-	enterDefineMacro(ctx) {
+	// Enter a parse tree produced by CParser#macroDefines.
+	enterMacroDefines(ctx) {
 	}
 
-	// Exit a parse tree produced by CParser#defineMacro.
-	exitDefineMacro(ctx) {
+	// Exit a parse tree produced by CParser#macroDefines.
+	exitMacroDefines(ctx) {
 	}
 
 

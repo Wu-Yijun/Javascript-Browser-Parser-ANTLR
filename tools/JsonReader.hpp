@@ -11,6 +11,16 @@ class JsonReader {
         std::string tmp;
         bool has_name = false;
         while (fin >> c) {
+            if (c >= '0' && c <= '9') {
+                double res = ReadNumber(fin, c);
+                if (!has_name)  // first enter, continue
+                    continue;
+                double* ptr = GetNumber(name);
+                if (ptr != nullptr)
+                    *ptr = res;
+                has_name = false;
+                continue;
+            }
             switch (c) {
                 case '{': {
                     if (!has_name)  // first enter, continue
@@ -57,28 +67,40 @@ class JsonReader {
                                 Balance(fin, '{', '}', 1);
                             else
                                 arr->Read(fin);
+                        } else if ('0' <= c && c <= '9') {
+                            double res = ReadNumber(fin, c);
+                            double* ptr = GetArrayNumber(name);
+                            if (ptr != nullptr)
+                                *ptr = res;
                         }
                     }
                     has_name = false;
                     break;
                 }
-                case ':':
+                case ':': {
                     break;
-                case '}':
+                }
+                case '}': {
+                    InputFinished();
                     return;
-                default:
+                }
+                default: {
                     break;
+                }
             }
         }
+        InputFinished();
     }
 
   protected:
     // you should overwrite these
-    std::string* GetString(std::string name) { return nullptr; }
-    JsonReader* GetObject(std::string name) { return nullptr; }
-    std::string* GetArrayString(std::string name) { return nullptr; }
-    JsonReader* GetArrayObject(std::string name) { return nullptr; }
-    void InputFinished() {}
+    virtual double* GetNumber(std::string name) { return nullptr; }
+    virtual std::string* GetString(std::string name) { return nullptr; }
+    virtual JsonReader* GetObject(std::string name) { return nullptr; }
+    virtual double* GetArrayNumber(std::string name) { return nullptr; }
+    virtual std::string* GetArrayString(std::string name) { return nullptr; }
+    virtual JsonReader* GetArrayObject(std::string name) { return nullptr; }
+    virtual void InputFinished() {}
 
   private:
     static int Balance(std::ifstream& fin, char l, char r, int left) {
@@ -121,27 +143,45 @@ class JsonReader {
             str_out += c;
         }
     }
+    static double ReadNumber(std::ifstream& fin, char c) {
+        // 数字
+        double res = (c - '0');
+        double res2 = 0.1;
+        while (fin.get(c) && c >= '0' && c <= '9') {
+            res = (c - '0') + res * 10;
+        }
+        if (c == '.')
+            while (fin.get(c) && c >= '0' && c <= '9') {
+                res += res2 * (c - '0');
+                res2 /= 10;
+            }
+        return res;
+    }
 };
 
 class Style : public JsonReader {
   public:
     std::string name;
     std::vector<std::string> names;
-    std::vector<std::string> ids_tmp;
+    std::vector<double> ids_tmp;
     std::set<int> ids;
     std::vector<std::string> styles;
 
   protected:
+    double* GetArrayNumber(std::string n) {
+        if (n == "ids") {
+            ids_tmp.push_back(0.0);
+            return &ids_tmp.back();
+        }
+        return nullptr;
+    }
     std::string* GetString(std::string n) {
         if (n == "name")
             return &name;
         return nullptr;
     }
     std::string* GetArrayString(std::string n) {
-        if (n == "ids") {
-            ids_tmp.push_back("");
-            return &ids_tmp.back();
-        } else if (n == "names") {
+        if (n == "names") {
             names.push_back("");
             return &names.back();
         } else if (n == "styles") {
@@ -151,7 +191,7 @@ class Style : public JsonReader {
         return nullptr;
     }
     void InputFinished() {
-        for (auto i : ids_tmp) ids.insert(atoi(i.c_str()));
+        for (auto i : ids_tmp) ids.insert((int)(i + 0.5));
     }
 };
 
@@ -177,11 +217,3 @@ class StyleSheet : public JsonReader {
         return nullptr;
     }
 };
-
-int main() {
-    StyleSheet st;
-    std::ifstream fin("F:\\Github\\Javascript-Browser-Parser-ANTLR\\tools\\CStyle.json");
-    st.Read(fin);
-    system("PAUSE");
-    return 0;
-}

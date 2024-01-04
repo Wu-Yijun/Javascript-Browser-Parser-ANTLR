@@ -1,4 +1,5 @@
 import CListener from './CListener.js';
+import CParser from './CParser.js';
 
 /*
 regular replace rule
@@ -9,10 +10,13 @@ to:
 enter$1(ctx) {
         logout(ctx, "$1");
     }
+enter$1(ctx) {
+        logout(ctx);
+    }
 */
 
 function logout(ctx, str) {
-    console.log(ctx.getChildCount(), ctx.getText(), str,
+    console.log(ctx.getChildCount(), ctx.getText(), CParser.ruleNames[ctx.ruleIndex],
         ctx.getSourceInterval().start + ":" + ctx.getSourceInterval().stop);
 }
 
@@ -926,7 +930,6 @@ export default class JSListener extends CListener {
     // Exit a parse tree produced by CParser#defineMacro.
     exitDefineMacro(ctx) {
     }
-
 
 
 

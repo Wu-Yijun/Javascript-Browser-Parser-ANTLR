@@ -273,4 +273,5 @@ document.getElementById("test").innerHTML = str;
 
 ![HighLight](/res/image3.png)
 
-然后关于前面的include和宏，
+然后关于前面的include和宏，这还是需要修改 g4 文件启用解析的。经过一系列调整，它终于好了。
+

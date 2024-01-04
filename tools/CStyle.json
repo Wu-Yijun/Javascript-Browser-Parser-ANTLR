@@ -35,7 +35,12 @@
                 "#include",
                 "#define"
             ],
-            "ids": [],
+            "ids": [
+                100.5,
+                3.1, 
+                4,
+                5
+            ],
             "styles": [
                 "color: green;",
                 "font-weight: bold;"

@@ -884,7 +884,8 @@ Ellipsis
     ;
 
 Identifier
-    : IdentifierNondigit (IdentifierNondigit | Digit)*
+    : (IdentifierNondigit (IdentifierNondigit | Digit)*)
+    | (IdentifierNondigit (IdentifierNondigit | Digit)* '##' Identifier)
     ;
 
 fragment IdentifierNondigit
@@ -1059,9 +1060,37 @@ fragment HexadecimalEscapeSequence
     : '\\x' HexadecimalDigit+
     ;
 
-StringLiteral
-    : EncodingPrefix? '"' SCharSequence? '"'
+
+defineMacro
+    : DefineMacroName  directDeclarator expression
+    | DefineMacroName  directDeclarator
     ;
+
+IncludeMacroName
+    : '#include'
+    ;
+
+DefineMacroName
+    : '#define'
+    ;
+
+
+StringLiteral
+    : (EncodingPrefix? '"' SCharSequence? '"')
+    | ('#' Identifier)
+    ;
+
+
+IncludePath
+    : '<' CCharSequence? '>'
+    ;
+
+
+includePath
+    : IncludeMacroName IncludePath
+    | IncludeMacroName StringLiteral
+    ;
+
 
 fragment EncodingPrefix
     : 'u8'
@@ -1088,25 +1117,9 @@ macroDefines
     // | Directive
     ;
 
-includePath
-    : IncludeMacroName IncludePath
-    ;
-
-IncludeMacroName
-    : '#include'
-    ;
-
-IncludePath
-    : '<' CCharSequence? '>'
-    | '\'' CCharSequence? '\''
-    | '"' SCharSequence? '"'
-    ;
 
 
-defineMacro
-    : '#define'  directDeclarator
-    | '#define'  directDeclarator  expression
-    ;
+
 
 
 
