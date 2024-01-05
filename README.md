@@ -185,6 +185,8 @@ print x + 8
 从 [antlr提供的编译器集合](https://github.com/antlr/grammars-v4) 中找出 C 的 C.g4
 由于它太全了，省去了我到处找的功夫，因此我给它了一个star ~~（暗示star）~~
 
+~~但是它版本较旧，比如我 C++ 用的是 C++23 ，但它的版本才到 C++14~~
+
 新建一个文件夹，同样的过程，处理完后，把 test 里我们创建的文件复制过去。
 
 然后修改一些链接名称。
@@ -195,7 +197,9 @@ print x + 8
 
 在网上找到了类似的问题 [Stack OveSflow](https://stackoverflow.com/questions/67973358/c-grammar-in-antlr4-raises-error-extraneous-input-int-on-int-main) ，结果需要使用 `compilationUnit()` 而不是 `primaryExpression()` 作为入口。
 
-使用代码仓库里C内的示例进行测试。
+~~确实，该是编译单元而不是基础表达式。~~
+
+使用简单的C代码进行测试。
 
 ```C
 #include <stdio.h>
@@ -298,8 +302,11 @@ document.getElementById("test").innerHTML = str;
  ~~等我有时间了~~，~~下次一定~~ ，#TODO ~~这总行了吧~~
 
 - 完成结构体部分的分析。
-- 将代码整理，封装好，可以直接调用。
-- 在调用时，同时输入预先定义的参数列表（比如 printf ），不让它报错。
+- 我定义的样式不完整，像是 `__inline__` 我就没有预设样式
+- 完善全部结构，目前只是简单的能用
+- 还需将代码整理，封装好，让我们可以直接调用。
+- 在调用时，同时输入预先定义的参数列表（比如 printf ），不然它报错。
 - 决定 `A b(c);` 的渲染方式（这似乎是没法用词法语法分析分辨的）
 - 自用分析并导入 include 部分。
+- C.g4 里的 Identifier 是直接用的，我们可以预先设好区分，而不是现在用的在监听器遍历树的时候分析。
 - ...
