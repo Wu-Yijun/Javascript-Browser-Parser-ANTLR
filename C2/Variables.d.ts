@@ -26,7 +26,7 @@ export declare class Variables {
 
 export declare class Range {
     start: number;
-    end: number;
+    stop: number;
     parentRg?: Range;
     pos_index?: number;
     name: string;
@@ -38,9 +38,9 @@ export declare class Range {
     vars: Array<Variables>;
     var_names: Array<string>;
 
-    constructor(start: number, end: number, parentRg?: Range, pos_index?: number);
+    constructor(start: number, stop: number, parentRg?: Range, pos_index?: number);
 
-    createSub(ctx: ParserRuleContext): Range;
+    createSub(ctx: ParserRuleContext, name: string): Range;
     addVar(variables: Variables): number;
     // addVarSub(name: string, index: number): void;
 
@@ -54,4 +54,8 @@ export declare class Range {
     setState(state: string, id?: number): void;
     popState(): string;
     pushState(state: string): number;
+
+    gothroughForVar(name: string, pos: number, identifier?: string): ?Variables;
+    goForRange(pos: number): ?Range;
+    insideName(name: string): boolean;
 }

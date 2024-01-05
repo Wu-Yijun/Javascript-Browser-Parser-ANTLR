@@ -7,7 +7,8 @@
             "names": [
                 ",",
                 ":",
-                ";"
+                ";",
+                "\\"
             ],
             "ids": [],
             "styles": [
@@ -19,13 +20,14 @@
             "names": [
                 "auto",
                 "const",
+                "static",
                 "for",
                 "return",
                 "struct"
             ],
             "ids": [],
             "styles": [
-                "color: green;",
+                "color: lightgreen;",
                 "font-weight: bold;"
             ]
         },
@@ -33,7 +35,8 @@
             "name": "Macros",
             "names": [
                 "#include",
-                "#define"
+                "#define",
+                "typedef"
             ],
             "ids": [
                 100.5,
@@ -62,11 +65,25 @@
                 "int",
                 "long",
                 "short",
-                "signed"
+                "signed",
+                "unsigned"
             ],
             "ids": [],
             "styles": [
                 "color: blue;"
+            ]
+        },
+        {
+            "name": "OtherType",
+            "names": [
+                "void",
+                "float",
+                "double",
+                "char"
+            ],
+            "ids": [],
+            "styles": [
+                "color: darkblue;"
             ]
         },
         {

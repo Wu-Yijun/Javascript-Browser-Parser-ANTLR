@@ -19,27 +19,20 @@
 .CodeCStyle19,
 .CodeCStyle21,
 .CodeCStyle22,
-.CodeCStyle23,
 .CodeCStyle25,
 .CodeCStyle26,
 .CodeCStyle27,
-.CodeCStyle28,
 .CodeCStyle29,
 .CodeCStyle30,
 .CodeCStyle31,
-.CodeCStyle32,
 .CodeCStyle34,
 .CodeCStyle35,
 .CodeCStyle36,
 .CodeCStyle39,
 .CodeCStyle40,
 .CodeCStyle44,
-.CodeCStyle45,
 .CodeCStyle47,
-.CodeCStyle48,
 .CodeCStyle49,
-.CodeCStyle50,
-.CodeCStyle51,
 .CodeCStyle52,
 .CodeCStyle53,
 .CodeCStyle54,
@@ -80,9 +73,10 @@
 .CodeCStyle24,
 .CodeCStyle33,
 .CodeCStyle41,
+.CodeCStyle45,
 .CodeCStyle46,
 .CodeCStyleKeyword {
-    color: green;
+    color: lightgreen;
     font-weight: bold;
 }
 
@@ -90,6 +84,7 @@
 .CodeCStyle3,
 .CodeCStyle4,
 .CodeCStyle5,
+.CodeCStyle48,
 .CodeCStyle101,
 .CodeCStyle113,
 .CodeCStyle114,
@@ -109,8 +104,18 @@
 .CodeCStyle38,
 .CodeCStyle42,
 .CodeCStyle43,
+.CodeCStyle50,
 .CodeCStyleNumberInteger {
     color: blue;
+}
+
+/* Style for C OtherType*/
+.CodeCStyle23,
+.CodeCStyle28,
+.CodeCStyle32,
+.CodeCStyle51,
+.CodeCStyleOtherType {
+    color: darkblue;
 }
 
 /* Style for C Assign*/

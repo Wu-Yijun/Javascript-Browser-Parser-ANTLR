@@ -12,7 +12,11 @@
 }
 
 #test {
-    font-size: 20px;
+    font-size: 13px;
+}
+
+.font-red-error{
+    color: red;
 }
 
 span.wavy-line {
@@ -39,3 +43,41 @@ span.decoration-line-blue {
 span.decoration-line-green {
     text-decoration-color: greenyellow;
 }
+
+
+.CodeCStyleTypeUndefined {
+    color: rgb(48, 186, 255);
+}
+
+.CodeCStyleTypeDefinedWord {
+    color: rgb(2, 82, 255);
+    font-weight: bold;
+}
+
+.CodeCStyleTypeDefinedFun {
+    color: rgb(36, 103, 180);
+    font-weight: bold;
+}
+
+.CodeCStyleTypeMacroParamFind,
+.CodeCStyleTypeMacroToString {
+    color: rgb(48, 144, 255);
+    font-weight: bold;
+}
+
+.CodeCStyleTypeMacroParamNotfind {
+    color: rgb(113, 126, 141);
+}
+
+.CodeCStyleTypeFunDeclare {
+    color: rgb(36, 103, 180);
+}
+
+.CodeCStyleTypeFunDef {
+    color: rgb(36, 103, 180);
+}
+
+.CodeCStyleTypeTypedef {
+    color: rgb(0, 30, 199);
+}
+

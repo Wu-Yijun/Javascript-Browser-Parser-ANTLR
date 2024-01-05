@@ -1,8 +1,8 @@
 // Range 只在作用域相关时创建。
 export class Range {
-    constructor(start, end, parentRg, pos_index) {
+    constructor(start, stop, parentRg, pos_index) {
         this.start = start;
-        this.end = end;
+        this.stop = stop;
         this.parentRg = parentRg;
         this.pos_index = pos_index;
         this.child = [];
@@ -12,13 +12,15 @@ export class Range {
         this.vars = []; // should by order
         this.vars_names = [];
     }
-    createSub(ctx) {
+    createSub(ctx, name) {
         let index = this.child.length;
         var newRange = new Range(ctx.getSourceInterval().start, ctx.getSourceInterval().stop, this, index);
+        newRange.name = name;
         this.child.push(newRange);
         return newRange;
     }
     addVar(variables) {
+        this.vars_names.push(variables.name);
         return this.vars.push(variables) - 1;
     }
     hasVar(name) {
@@ -66,10 +68,54 @@ export class Range {
         this.state[this.state.length - 1 - id] = state;
     }
     popState() {
+        if (this.state.length == 0)
+            debugger;
         return this.state.pop() || "";
     }
     pushState(state) {
         return this.state.push(state);
+    }
+
+    goForRange(pos) {
+        if (this.start > pos || this.stop < pos)
+            return null;
+        for (let i of this.child) {
+            let res = i.goForRange(pos);
+            if (res)
+                return res;
+        }
+        return this;
+    }
+    gothroughForVar(name, pos, identifier) {
+        if (this.start > pos || this.stop < pos)
+            return null;
+        for (let i of this.child) {
+            let res = i.gothroughForVar(name, pos, identifier);
+            if (res)
+                return res;
+        }
+        // 从内向外找!
+        for (let i of this.vars)
+            if (i.name == name) {
+                let res = i.notEnabled(pos);
+                if (res == 0)
+                    if (identifier) {
+                        if (identifier == i.identifier)
+                            return i;
+                    } else {
+                        return i;
+                    }
+                if (res > 0)
+                    break;
+            }
+        return null;
+    }
+    insideName(name) {
+        if (name == this.name)
+            return true;
+        if (this.parentRg && this.parentRg.insideName(name))
+            return true;
+        return false;
     }
 }
 

@@ -885,7 +885,7 @@ Ellipsis
 
 Identifier
     : (IdentifierNondigit (IdentifierNondigit | Digit)*)
-    | (IdentifierNondigit (IdentifierNondigit | Digit)* '##' Identifier)
+    | (IdentifierNondigit (IdentifierNondigit | Digit)* [ ]* '##' [ ]* Identifier)
     ;
 
 fragment IdentifierNondigit
@@ -1077,7 +1077,7 @@ DefineMacroName
 
 StringLiteral
     : (EncodingPrefix? '"' SCharSequence? '"')
-    | ('#' Identifier)
+    | ('#' [ ]* Identifier)
     ;
 
 
