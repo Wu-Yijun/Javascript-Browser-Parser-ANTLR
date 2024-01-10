@@ -310,3 +310,27 @@ document.getElementById("test").innerHTML = str;
 - 自用分析并导入 include 部分。
 - C.g4 里的 Identifier 是直接用的，我们可以预先设好区分，而不是现在用的在监听器遍历树的时候分析。
 - ...
+
+
+## 不管优化了，我们直接开干 C++
+
+*由于C++内容比较多，我们尽量尝试全部覆盖*
+
+### 新的优化思路
+
+后来我睡觉的时候想，C 里面我们通过 JavaScript 代码来分析语法单元究竟是函数定义/声明/变量定义/声明等等。但其实没必要。我们希望可以在语法分析中将token命名为不同的名字来区分这些性质，最终达到大大简化我们计算的目的。
+
+### 开始
+
+从 [antlr提供的编译器集合](https://github.com/antlr/grammars-v4) 中找出 C++ 的 CPP14Parser.g4 和 CPP14Lexer.g4 这两个文件，看到它把词法和语法分析拎开了。
+
+**Lexer** 一共 400 行，结构较为清晰。
+
+**Parser** 巨长无比，一共 1000 多行，因此需要我们费一些功夫来深入分析一下。
+
+先试着编译看看效果。
+
+``` bash
+..\antlr.jar -Dlanguage=JavaScript CPP14Lexer.g4
+..\antlr.jar -Dlanguage=JavaScript CPP14Parser.g4
+```
