@@ -38,6 +38,11 @@ translationUnit
     : declarationseq? EOF
     ;
 
+// MY
+identifier
+    : Identifier
+    ;
+
 /*Expressions*/
 
 primaryExpression
@@ -54,7 +59,7 @@ idExpression
     ;
 
 unqualifiedId
-    : Identifier
+    : identifier
     | operatorFunctionId
     | conversionFunctionId
     | literalOperatorId
@@ -68,7 +73,7 @@ qualifiedId
 
 nestedNameSpecifier
     : (theTypeName | namespaceName | decltypeSpecifier)? Doublecolon
-    | nestedNameSpecifier ( Identifier | Template? simpleTemplateId) Doublecolon
+    | nestedNameSpecifier ( identifier | Template? simpleTemplateId) Doublecolon
     ;
 
 lambdaExpression
@@ -99,12 +104,12 @@ capture
     ;
 
 simpleCapture
-    : And? Identifier
+    : And? identifier
     | This
     ;
 
 initcapture
-    : And? Identifier initializer
+    : And? identifier initializer
     ;
 
 lambdaDeclarator
@@ -146,7 +151,7 @@ pseudoDestructorName
 unaryExpression
     : postfixExpression
     | (PlusPlus | MinusMinus | unaryOperator | Sizeof) unaryExpression
-    | Sizeof (LeftParen theTypeId RightParen | Ellipsis LeftParen Identifier RightParen)
+    | Sizeof (LeftParen theTypeId RightParen | Ellipsis LeftParen identifier RightParen)
     | Alignof LeftParen theTypeId RightParen
     | noExceptExpression
     | newExpression_
@@ -300,7 +305,7 @@ statement
     ;
 
 labeledStatement
-    : attributeSpecifierSeq? (Identifier | Case constantExpression | Default) Colon statement
+    : attributeSpecifierSeq? (identifier | Case constantExpression | Default) Colon statement
     ;
 
 expressionStatement
@@ -352,7 +357,7 @@ forRangeInitializer
     ;
 
 jumpStatement
-    : (Break | Continue | Return (expression | bracedInitList)? | Goto Identifier) Semi
+    : (Break | Continue | Return (expression | bracedInitList)? | Goto identifier) Semi
     ;
 
 declarationStatement
@@ -389,7 +394,7 @@ blockDeclaration
     ;
 
 aliasDeclaration
-    : Using Identifier attributeSpecifierSeq? Assign theTypeId Semi
+    : Using identifier attributeSpecifierSeq? Assign theTypeId Semi
     ;
 
 simpleDeclaration
@@ -437,7 +442,7 @@ functionSpecifier
     ;
 
 typedefName
-    : Identifier
+    : identifier
     ;
 
 typeSpecifier
@@ -505,15 +510,15 @@ decltypeSpecifier
 
 elaboratedTypeSpecifier
     : classKey (
-        attributeSpecifierSeq? nestedNameSpecifier? Identifier
+        attributeSpecifierSeq? nestedNameSpecifier? identifier
         | simpleTemplateId
         | nestedNameSpecifier Template? simpleTemplateId
     )
-    | Enum nestedNameSpecifier? Identifier
+    | Enum nestedNameSpecifier? identifier
     ;
 
 enumName
-    : Identifier
+    : identifier
     ;
 
 enumSpecifier
@@ -521,11 +526,11 @@ enumSpecifier
     ;
 
 enumHead
-    : enumkey attributeSpecifierSeq? (nestedNameSpecifier? Identifier)? enumbase?
+    : enumkey attributeSpecifierSeq? (nestedNameSpecifier? identifier)? enumbase?
     ;
 
 opaqueEnumDeclaration
-    : enumkey attributeSpecifierSeq? Identifier enumbase? Semi
+    : enumkey attributeSpecifierSeq? identifier enumbase? Semi
     ;
 
 enumkey
@@ -545,7 +550,7 @@ enumeratorDefinition
     ;
 
 enumerator
-    : Identifier
+    : identifier
     ;
 
 namespaceName
@@ -554,19 +559,19 @@ namespaceName
     ;
 
 originalNamespaceName
-    : Identifier
+    : identifier
     ;
 
 namespaceDefinition
-    : Inline? Namespace (Identifier | originalNamespaceName)? LeftBrace namespaceBody = declarationseq? RightBrace
+    : Inline? Namespace (identifier | originalNamespaceName)? LeftBrace namespaceBody = declarationseq? RightBrace
     ;
 
 namespaceAlias
-    : Identifier
+    : identifier
     ;
 
 namespaceAliasDefinition
-    : Namespace Identifier Assign qualifiednamespacespecifier Semi
+    : Namespace identifier Assign qualifiednamespacespecifier Semi
     ;
 
 qualifiednamespacespecifier
@@ -607,11 +612,11 @@ attributeList
     ;
 
 attribute
-    : (attributeNamespace Doublecolon)? Identifier attributeArgumentClause?
+    : (attributeNamespace Doublecolon)? identifier attributeArgumentClause?
     ;
 
 attributeNamespace
-    : Identifier
+    : identifier
     ;
 
 attributeArgumentClause
@@ -775,7 +780,7 @@ bracedInitList
 /*Classes*/
 
 className
-    : Identifier
+    : identifier
     | simpleTemplateId
     ;
 
@@ -827,7 +832,7 @@ memberDeclarator
         | braceOrEqualInitializer
     )
     | declarator
-    | Identifier? attributeSpecifierSeq? Colon constantExpression
+    | identifier? attributeSpecifierSeq? Colon constantExpression
     ;
 
 virtualSpecifierSeq
@@ -908,7 +913,7 @@ memInitializer
 
 meminitializerid
     : classOrDeclType
-    | Identifier
+    | identifier
     ;
 
 /*Overloading*/
@@ -918,7 +923,7 @@ operatorFunctionId
     ;
 
 literalOperatorId
-    : Operator (StringLiteral Identifier | UserDefinedStringLiteral)
+    : Operator (StringLiteral identifier | UserDefinedStringLiteral)
     ;
 
 /*Templates*/
@@ -938,8 +943,8 @@ templateParameter
 
 typeParameter
     : ((Template Less templateparameterList Greater)? Class | Typename_) (
-        Ellipsis? Identifier?
-        | Identifier? Assign theTypeId
+        Ellipsis? identifier?
+        | identifier? Assign theTypeId
     )
     ;
 
@@ -953,7 +958,7 @@ templateId
     ;
 
 templateName
-    : Identifier
+    : identifier
     ;
 
 templateArgumentList
@@ -967,7 +972,7 @@ templateArgument
     ;
 
 typeNameSpecifier
-    : Typename_ nestedNameSpecifier (Identifier | Template? simpleTemplateId)
+    : Typename_ nestedNameSpecifier (identifier | Template? simpleTemplateId)
     ;
 
 explicitInstantiation

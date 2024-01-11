@@ -131,7 +131,7 @@ console.log(x+8)
 
 你需要使用 go live 来预览你的网页，不然它不会加载这么多js
 
-![evaluate](./res/image.png)
+![evaluate](./res/image0.png)
 
 可用看到，总共资源为 0.5M 的大小，已经不是可用轻易忽略的size了。
 
@@ -322,7 +322,7 @@ document.getElementById("test").innerHTML = str;
 
 ### 开始
 
-从 [antlr提供的编译器集合](https://github.com/antlr/grammars-v4) 中找出 C++ 的 CPP14Parser.g4 和 CPP14Lexer.g4 这两个文件，看到它把词法和语法分析拎开了。
+从 [antlr提供的编译器集合](https://github.com/antlr/grammars-v4) 中找出 C++ 的 CPP14Parser.g4 和 CPP14Lexer.g4 这两个文件，看到它把词法和语法分析拎开了。以及我们还需要 CPP14ParserBase.js 这个文件，因为需要在编译完后作为基类被继承。
 
 **Lexer** 一共 400 行，结构较为清晰。
 
@@ -331,6 +331,51 @@ document.getElementById("test").innerHTML = str;
 先试着编译看看效果。
 
 ``` bash
-..\antlr.jar -Dlanguage=JavaScript CPP14Lexer.g4
-..\antlr.jar -Dlanguage=JavaScript CPP14Parser.g4
+..\antlr.jar -Dlanguage=JavaScript CPP14Lexer.g4 CPP14Parser.g4
+..\tools\repath.exe CPP14Lexer.js CPP14Parser.js CPP14Listener.js
 ```
+
+输出没什么问题，然后我们尝试跑一下并打印 tokens：
+
+*复制过来 Variables.js 和 JSListenerRun.js 这两个文件，后者稍微改动一下，（改名为 MyListener），最后在改一个简单的Test ，选取最上层节点为编译单元 translationUnit 然后遍历树。*
+```javascript
+for(let i of tokens.tokens)
+    console.log(i.text, Token(i.type))
+```
+
+修改一些名字后，发现可以很顺利地跑起来，且词法分析基本没问题。
+
+但存一个问题，就是分析时间很长，此时页面会无响应。因此我们需要先尝试将 Antlr4 的处理改成可中断的。
+
+但如果在深处中断，需要所有我们调用它的函数都设置为异步的，这样对性能和代码修改量都是不友好的。
+
+我们发现一个链条：`translationUnit -> declarationseq -> declaration+` 一个编译单元可以分解为多个声明的列表。因此我们可以将每一个 declaration 作为一个切片，中间可以执行其它任务。
+这样一个单元只包含一个函数，量稍微少了一些些，残存的问题就是长的函数、类定义。（之后再想办法）
+
+先测试一下分段后的性能：
+![before](res/image6.png) ![after](res/image7.png)
+
+可以看出来，长任务被分块为了一些小段。但是小段还是稍长了一些。后续还需要进一步减少每个块上面的开销。
+
+![long-func](res/image8.png)
+
+不过可以看出，当我们把函数的长度大大延长时，每一块的时间增长的并不是很多，还是在勉强可以接受的量级内。
+
+#### 使用 C++ 自动处理函数异步
+
+写好程序，自动查找。命令格式为
+```bash
+..\tools\ParserToAsync.exe CPP14Parser.js translationUnit declarationseq declaration
+```
+参数列表为 Path A1 A2 A3 ... An B
+意思是处理 Path 文件， A1 函数中的 A2 是异步的，A2 函数中的 A3 是异步的，... An-1 函数中的 An 是异步的，最后，在 An 函数的 B 后面进行分块。
+
+### 调整语法分析
+
+我们先给 Identifier 分个类
+在最前面引入 `identifier` 为 `Identifier` ，再将后面的 `Identifier` 全部替换为 `identifier`
+然后试图找到那些 `Identifier` 分别对应什么。
+
+主要需要考虑的是定义部分的变量
+
+
